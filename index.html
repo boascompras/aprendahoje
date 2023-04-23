@@ -2,8 +2,79 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Vídeo incorporado do YouTube</title>
+  <title>Vídeo incorporado do YouTube com Popup</title>
   <style>
+    /* Estilo do Popup */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, #FF6B6B, #6B66FF);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .popup-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .popup h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #6B66FF;
+    }
+
+    .popup p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .popup button {
+      padding: 10px 30px;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .popup button.accept {
+      background-color: #4caf50;
+      color: #fff;
+    }
+
+    .popup button.reject {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    .popup button:hover {
+      opacity: 0.8;
+    }
+
+    /* Estilo do Embed do Youtube */
     .embed-container {
       position: relative;
       padding-bottom: 56.25%;
@@ -11,6 +82,7 @@
       overflow: hidden;
       max-width: 100%;
     }
+
     .embed-container iframe,
     .embed-container object,
     .embed-container embed {
@@ -20,27 +92,80 @@
       width: 100%;
       height: 100%;
     }
+    
+    /* Overlay por cima do vídeo */
     .embed-container::before {
       content: "";
       display: block;
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width:100%;
       height: 100%;
       z-index: 9999;
       pointer-events: all;
       background: transparent;
     }
+
+    /* Oculta o iframe e exibe o overlay quando o popup estiver visível */
+    .embed-container.hide {
+      display: none;
+    }
+
+    .embed-container.hide::before {
+      background: rgba(255, 255, 255, 0.8);
+      content: "Carregando vídeo...";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      color: #333;
+    }
   </style>
 </head>
 <body>
-
-  <div class="embed-container">
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen muted="false"></iframe>
+  <!-- Popup -->
+  <div class="popup">
+    <div class="popup-background"></div>
+    <div class="popup-content">
+      <h2>Receba um Ebook exclusivo!</h2>
+      <p>Assine nossa newsletter e receba um Ebook gratuito com dicas exclusivas.</p>
+      <button class="accept">Aceito</button>
+      <button class="reject">Agora não</button>
+    </div>
   </div>
 
+  <!-- Embed do Youtube -->
+  <div class="embed-container hide"></div>
+
+  <!-- Script para controlar o Popup e o Embed do Youtube -->
   <script>
+    var popup = document.querySelector('.popup');
+    var acceptBtn = document.querySelector('.accept');
+    var rejectBtn = document.querySelector('.reject');
+    var embedContainer = document.querySelector('.embed-container');
+
+    function initVideo() {
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'autoplay; encrypted-media');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('muted', 'false');
+      embedContainer.appendChild(iframe);
+      embedContainer.classList.remove('hide');
+    }
+
+    acceptBtn.addEventListener('click', function() {
+      popup.style.display = 'none';
+      initVideo();
+    });
+
+    rejectBtn.addEventListener('click', function() {
+      popup.style.display = 'none';
+      initVideo();
+    });
+
     document.addEventListener("contextmenu", function(e) {
       e.preventDefault();
     });
@@ -49,13 +174,10 @@
       if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 73)) {
         e.preventDefault();
       }
-    });
-
-    var video = document.getElementById("video");
-    document.addEventListener("click", function() {
-      video.click();
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+        e.preventDefault();
+      }
     });
   </script>
-
 </body>
 </html>

@@ -121,6 +121,22 @@
       font-size: 2rem;
       color: #333;
     }
+
+    /* Estilo do botão de play */
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99999;
+      cursor: pointer;
+    }
+
+    .play-button i {
+      font-size: 6rem;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -138,12 +154,17 @@
   <!-- Embed do Youtube -->
   <div class="embed-container hide"></div>
 
+  <!-- Botão de play para dispositivos móveis -->
+  <div class="play-button"></div>
+
   <!-- Script para controlar o Popup e o Embed do Youtube -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     var popup = document.querySelector('.popup');
     var acceptBtn = document.querySelector('.accept');
     var rejectBtn = document.querySelector('.reject');
     var embedContainer = document.querySelector('.embed-container');
+    var playButton = document.querySelector('.play-button');
 
     function initVideo() {
       var iframe = document.createElement('iframe');
@@ -177,6 +198,19 @@
       if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
         e.preventDefault();
       }
+    });
+
+    // Adiciona o botão de play em dispositivos móveis
+    if ($(window).width() < 768) {
+      var playIcon = $('<i>').addClass('fa fa-play');
+      playButton.append(playIcon);
+      playButton.show();
+    }
+
+    // Inicia o vídeo quando o usuário clicar no botão de play em dispositivos móveis
+    playButton.on('click', function() {
+      initVideo();
+      playButton.hide();
     });
   </script>
 </body>

@@ -1,7 +1,5 @@
-html
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <title>Vídeo incorporado do YouTube com Popup</title>
@@ -94,7 +92,7 @@ html
       width: 100%;
       height: 100%;
     }
-
+    
     /* Overlay por cima do vídeo */
     .embed-container::before {
       content: "";
@@ -102,7 +100,7 @@ html
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width:100%;
       height: 100%;
       z-index: 9999;
       pointer-events: all;
@@ -123,25 +121,8 @@ html
       font-size: 2rem;
       color: #333;
     }
-
-    /* Estilo do botão de play */
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 99999;
-      cursor: pointer;
-    }
-
-    .play-button i {
-      font-size: 6rem;
-      color: #fff;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    }
   </style>
 </head>
-
 <body>
   <!-- Popup -->
   <div class="popup">
@@ -157,21 +138,16 @@ html
   <!-- Embed do Youtube -->
   <div class="embed-container hide"></div>
 
-  <!-- Botão de play para dispositivos móveis -->
-  <div class="play-button"></div>
-
   <!-- Script para controlar o Popup e o Embed do Youtube -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     var popup = document.querySelector('.popup');
     var acceptBtn = document.querySelector('.accept');
     var rejectBtn = document.querySelector('.reject');
     var embedContainer = document.querySelector('.embed-container');
-    var playButton = document.querySelector('.play-button');
 
     function initVideo() {
       var iframe = document.createElement('iframe');
-      iframe.setAttribute('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1');
+      iframe.setAttribute('src', 'https://www.youtube.com/embed/dQw4wWgXcQ?autoplay=1');
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('allow', 'autoplay; encrypted-media');
       iframe.setAttribute('allowfullscreen', '');
@@ -202,20 +178,6 @@ html
         e.preventDefault();
       }
     });
-
-    // Adiciona o botão de play em dispositivos móveis
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      var playIcon = $('<i>').addClass('fa fa-play');
-      playButton.append(playIcon);
-      playButton.show();
-    }
-
-    // Inicia o vídeo quando o usuário clicar no botão de play em dispositivos móveis
-    playButton.on('click', function() {
-      initVideo();
-      playButton.hide();
-    });
   </script>
 </body>
-
 </html>

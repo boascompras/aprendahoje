@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Minha Página</title>
-  </head>
-  <body>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9YAUvimBgO8?modestbranding=1" frameborder="0" allowfullscreen></iframe>
-
-  </body>
+<head>
+	<title>Exemplo de Incorporação de Vídeo do YouTube com Embed Responsively</title>
+	<style>
+		.embed-container {
+			position: relative;
+			padding-bottom: 56.25%;
+			height: 0;
+			overflow: hidden;
+			max-width: 100%;
+		}
+		.embed-container iframe,
+		.embed-container object,
+		.embed-container embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.embed-container .ytp-cued-thumbnail-overlay-image {
+			display: none !important;
+		}
+		.embed-container .ytp-title-link {
+			display: none !important;
+		}
+	</style>
+</head>
+<body>
+	<div class='embed-container'>
+		<iframe src='https://www.youtube.com/embed/9YAUvimBgO8' frameborder='0' allowfullscreen></iframe>
+	</div>
+</body>
 </html>

@@ -1,35 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Exemplo de Incorporação de Vídeo do YouTube com Embed Responsively</title>
-	<style>
-		.embed-container {
-			position: relative;
-			padding-bottom: 56.25%;
-			height: 0;
-			overflow: hidden;
-			max-width: 100%;
-		}
-		.embed-container iframe,
-		.embed-container object,
-		.embed-container embed {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
-		.embed-container .ytp-cued-thumbnail-overlay-image {
-			display: none !important;
-		}
-		.embed-container .ytp-title-link {
-			display: none !important;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <title>Vídeo incorporado do YouTube</title>
+  <style>
+    .embed-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .embed-container iframe,
+    .embed-container object,
+    .embed-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .embed-container::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      pointer-events: all;
+      background: transparent;
+    }
+  </style>
 </head>
 <body>
-	<div class='embed-container'>
-		<iframe src='https://www.youtube.com/embed/9YAUvimBgO8' frameborder='0' allowfullscreen></iframe>
-	</div>
+  <div class="embed-container">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+  <script>
+  document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 73)) {
+      e.preventDefault();
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+      e.preventDefault();
+    }
+  });
+</script>
+
 </body>
 </html>

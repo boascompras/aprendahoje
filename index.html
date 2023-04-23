@@ -37,7 +37,7 @@
 <body>
 
   <div class="embed-container">
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen muted="false"></iframe>
+    <iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <script>
@@ -49,6 +49,11 @@
       if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 73)) {
         e.preventDefault();
       }
+    });
+
+    var video = document.getElementById("video");
+    document.addEventListener("click", function() {
+      video.click();
     });
   </script>
 
